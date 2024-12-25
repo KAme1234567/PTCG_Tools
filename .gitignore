@@ -1,14 +1,31 @@
 # 忽略 Python 虛擬環境
-venv/
-.env
-
-# 忽略編譯文件
+backend/venv/
 *.pyc
 __pycache__/
 
-# 忽略日誌和暫存文件
+# 忽略前端的臨時和構建文件
+frontend/.dart_tool/
+frontend/.idea/
+frontend/build/
+frontend/android/.gradle/
+frontend/linux/flutter/
+frontend/web/flutter/
+frontend/.flutter-plugins
+frontend/.flutter-plugins-dependencies
+
+# 忽略 IDE 配置文件
+*.iml
+*.swp
+*.vscode/
+
+# 忽略操作系統生成的文件
+.DS_Store
+Thumbs.db
+
+# 忽略其他臨時文件
 *.log
 *.tmp
 
-# 不忽略所有文件
-!*
+# 保留所有必要文件
+!.gitignore
+

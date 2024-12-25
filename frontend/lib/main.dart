@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'pages/home_page.dart';
-import 'pages/Knowledge_page.dart';
-import 'pages/Card_page.dart';
-import 'pages/Transaction_Page.dart';
-import 'pages/settings_page.dart';
+import 'home_page.dart';
+import 'pages/teaching/Knowledge_page.dart';
+import 'pages/search/Card_page.dart';
+import 'pages/navigation/Transaction_Page.dart';
+import 'pages/navigation/settings_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -31,7 +31,7 @@ class _HomePageNavigatorState extends State<HomePageNavigator> {
 
   final List<Widget> _pages = [
     Knowledge_page(),
-    Card_page(),
+    CardPage(),
     HomePage(),
     Transaction_Page(),
     SettingsPage(),
@@ -50,9 +50,8 @@ class _HomePageNavigatorState extends State<HomePageNavigator> {
         },
         type: BottomNavigationBarType.fixed,
         items: [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.school_outlined), label: '芝士'),
-          BottomNavigationBarItem(icon: Icon(Icons.notifications), label: '卡牌'),
+          BottomNavigationBarItem(icon: Icon(Icons.school), label: '芝士'),
+          BottomNavigationBarItem(icon: Icon(Icons.search), label: '查詢'),
           BottomNavigationBarItem(icon: Icon(Icons.home), label: '首頁'),
           BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: '交易'),
           BottomNavigationBarItem(icon: Icon(Icons.settings), label: '設定'),

@@ -35,8 +35,13 @@ class _InfiniteScrollListState extends State<InfiniteScrollList> {
 
     final response = await http.get(Uri.parse(
         'http://127.0.0.1:8000/api/items?page=$_page&limit=$_limit')); // 使用局域網 IP
+    // 'http://10.0.2.2:8000/api/items?page=$_page&limit=$_limit')); // 使用局域網 IP
 
     if (response.statusCode == 200) {
+      final decodedData = utf8.decode(response.bodyBytes);
+      final items = json.decode(decodedData);
+      print(items); // 應該能正確顯示中文
+
       final List<dynamic> data = json.decode(response.body);
       setState(() {
         _items.addAll(data.map((item) {
