@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class InfiniteScrollList extends StatefulWidget {
+  const InfiniteScrollList({super.key});
+
   @override
   _InfiniteScrollListState createState() => _InfiniteScrollListState();
 }
@@ -34,7 +36,7 @@ class _InfiniteScrollListState extends State<InfiniteScrollList> {
     });
 
     final response = await http.get(Uri.parse(
-        'http://127.0.0.1:8000/api/items?page=$_page&limit=$_limit')); // 使用局域網 IP
+        'http://127.0.0.1:8745/api/items?page=$_page&limit=$_limit')); // 使用局域網 IP
     // 'http://10.0.2.2:8000/api/items?page=$_page&limit=$_limit')); // 使用局域網 IP
 
     if (response.statusCode == 200) {

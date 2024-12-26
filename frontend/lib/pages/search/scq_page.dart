@@ -1,42 +1,54 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ptcg/widgets/infinite_scroll_list_copy.dart';
+import '../../widgets/search/PTCG_DATA_API.dart'; // 導入 PTCG_DATA_API 組件
 
-class ScqPage extends StatefulWidget {
-  const ScqPage({super.key});
+class SearchPage extends StatefulWidget {
+  const SearchPage({super.key});
 
   @override
-  _ScqPageState createState() => _ScqPageState();
+  _SearchPageState createState() => _SearchPageState();
 }
 
-class _ScqPageState extends State<ScqPage> {
-  final TextEditingController _controller = TextEditingController();
+class _SearchPageState extends State<SearchPage> {
+  final nameFocusNode = FocusNode(); // 名稱輸入框焦點
+  final moveFocusNode = FocusNode(); // 招式輸入框焦點
+
+  final nameController = TextEditingController(); // 名稱搜索框控制器
+  final moveController = TextEditingController(); // 招式搜索框控制器
 
   @override
   void dispose() {
-    _controller.dispose();
+    // 清理資源
+    nameFocusNode.dispose();
+    moveFocusNode.dispose();
+    nameController.dispose();
+    moveController.dispose();
     super.dispose();
+  }
+
+  void _onSearchPressed() {
+    // 清除所有焦點，避免 DOM 與 Flutter 焦點不一致
+    FocusScope.of(context).unfocus();
+    // 打印當前的查詢條件
+    debugPrint('查詢條件 - 名稱: ${nameController.text}, 招式: ${moveController.text}');
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Center(
-          child: Text(
-            '單卡查詢',
-            style: TextStyle(fontSize: 32),
-          ),
-        ),
+        title: const Text('PTCG Cards'), // 應用標題
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            Row(
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
               children: [
                 Expanded(
                   child: TextField(
-                    controller: _controller,
+                    focusNode: nameFocusNode,
+                    controller: nameController,
                     decoration: InputDecoration(
                       hintText: '輸入卡片名稱',
                       border: OutlineInputBorder(
@@ -45,32 +57,35 @@ class _ScqPageState extends State<ScqPage> {
                     ),
                   ),
                 ),
-                SizedBox(width: 8),
-                ElevatedButton(
-                  onPressed: () {
-                    // 搜索按鈕的操作
-                  },
-                  child: Icon(Icons.search),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: TextField(
+                    focusNode: moveFocusNode,
+                    controller: moveController,
+                    decoration: InputDecoration(
+                      hintText: '輸入招式名稱',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12.0),
+                      ),
+                    ),
+                  ),
                 ),
-                SizedBox(width: 8),
+                const SizedBox(width: 8),
                 ElevatedButton(
-                  onPressed: () {
-                    // 篩選按鈕的操作
-                  },
-                  child: Icon(Icons.filter_list),
+                  onPressed: _onSearchPressed,
+                  child: const Icon(Icons.search),
                 ),
               ],
             ),
-            SizedBox(height: 16), // 添加間距
-            Expanded(
-              child: Center(
-                child: Expanded(
-                  child: CardsDisplay(),
-                ),
-              ),
+          ),
+          const SizedBox(height: 16), // 添加間距
+          Expanded(
+            child: PTCGDATAAPI(
+              name: nameController.text,
+              move: moveController.text,
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

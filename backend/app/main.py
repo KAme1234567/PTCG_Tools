@@ -1,7 +1,9 @@
-# E:\Projects\PTCG_Tools\backend\app\main.py
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI
-from app.routes import cards,attributes, items
+from fastapi.responses import JSONResponse
+
+
+from app.routes import cards, attributes, items
 
 app = FastAPI()
 
@@ -13,10 +15,11 @@ app.add_middleware(
     allow_methods=["*"],  # 允許所有 HTTP 方法
     allow_headers=["*"],  # 允許所有 HTTP 標頭
 )
+# 包含路由
 app.include_router(items.router, prefix="/api")
 app.include_router(cards.router, prefix="/api")
 app.include_router(attributes.router, prefix="/api")
 
 @app.get("/")
 def read_root():
-    return {"message": "歡迎使用 PTCG 工具 API"}
+    return {"message": "歡迎使用 PTCGasd 工具 API"}

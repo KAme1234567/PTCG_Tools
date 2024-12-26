@@ -104,7 +104,7 @@ class CardPage extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => ScqPage()),
+                    MaterialPageRoute(builder: (context) => SearchPage()),
                   );
                 },
                 child: Card(

@@ -50,7 +50,7 @@ class _HomePageNavigatorState extends State<HomePageNavigator> {
         },
         type: BottomNavigationBarType.fixed,
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.school), label: '芝士'),
+          BottomNavigationBarItem(icon: Icon(Icons.school), label: '芝Ｗ士'),
           BottomNavigationBarItem(icon: Icon(Icons.search), label: '查詢'),
           BottomNavigationBarItem(icon: Icon(Icons.home), label: '首頁'),
           BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: '交易'),
