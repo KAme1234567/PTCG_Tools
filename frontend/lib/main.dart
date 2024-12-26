@@ -4,8 +4,13 @@ import 'pages/teaching/Knowledge_page.dart';
 import 'pages/search/Card_page.dart';
 import 'pages/navigation/Transaction_Page.dart';
 import 'pages/navigation/settings_page.dart';
+import 'widgets/SQLite/deck_database.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  // await DeckDatabase.deleteDatabaseFile(); // 刪除資料庫
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -27,13 +32,11 @@ class HomePageNavigator extends StatefulWidget {
 }
 
 class _HomePageNavigatorState extends State<HomePageNavigator> {
-  int _currentIndex = 2;
+  int _currentIndex = 1;
 
   final List<Widget> _pages = [
-    Knowledge_page(),
     CardPage(),
     HomePage(),
-    Transaction_Page(),
     SettingsPage(),
   ];
 
@@ -50,10 +53,8 @@ class _HomePageNavigatorState extends State<HomePageNavigator> {
         },
         type: BottomNavigationBarType.fixed,
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.school), label: '芝士'),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: '查詢'),
+          BottomNavigationBarItem(icon: Icon(Icons.search), label: '資料庫'),
           BottomNavigationBarItem(icon: Icon(Icons.home), label: '首頁'),
-          BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: '交易'),
           BottomNavigationBarItem(icon: Icon(Icons.settings), label: '設定'),
         ],
       ),

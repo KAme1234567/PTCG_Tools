@@ -1,6 +1,7 @@
 from fastapi import APIRouter, HTTPException, Query
 from app.database import get_db_connection
 from fastapi.responses import JSONResponse
+
 router = APIRouter()
 
 @router.get("/cards")
@@ -17,7 +18,9 @@ def get_cards(
     max_damage: int = Query(None, ge=0, description="最高傷害"),
     weakness: str = Query(None, description="弱點屬性"),
     resistance: str = Query(None, description="抗性屬性"),
-    retreat_cost: int = Query(None, ge=0, description="逃跑能量需求")
+    retreat_cost: int = Query(None, ge=0, description="逃跑能量需求"),
+    page: int = Query(1, ge=1, description="頁碼"),
+    limit: int = Query(10, ge=1, description="每頁顯示的卡片數量")
 ):
     """
     取得所有卡牌信息，支援多條件搜尋。
@@ -34,7 +37,10 @@ def get_cards(
     - `weakness`: 根據弱點屬性搜尋
     - `resistance`: 根據抗性屬性搜尋
     - `retreat_cost`: 根據逃跑能量需求搜尋
+    - `page`: 頁碼
+    - `limit`: 每頁顯示的卡片數量
     """
+    offset = (page - 1) * limit
     try:
         conn = get_db_connection("ptcg_cards.db")
         cursor = conn.cursor()
@@ -83,31 +89,18 @@ def get_cards(
             query += " AND retreat_cost = ?"
             params.append(retreat_cost)
 
+        # 添加分頁功能
+        query += " LIMIT ? OFFSET ?"
+        params.append(limit)
+        params.append(offset)
+
         cursor.execute(query, params)
         cards = cursor.fetchall()
-        conn.close()
-
-        return JSONResponse(content=[dict(row) for row in cards], media_type="application/json; charset=utf-8")
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error retrieving cards: {e}")
-
-@router.post("/cards")
-def add_card(card: dict):
-    """新增卡牌"""
-    try:
-        conn = get_db_connection("ptcg_cards.db")
-        cursor = conn.cursor()
-        cursor.execute('''
-            INSERT INTO cards (name, evolution_stage, rarity, hp, type, move, effect, damage, weakness, resistance, retreat_cost, image_url)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        ''', (
-            card["name"], card["evolution_stage"], card["rarity"], card["hp"],
-            card["type"], card["move"], card["effect"], card["damage"],
-            card["weakness"], card["resistance"], card["retreat_cost"], card["image_url"]
-        ))
-        conn.commit()
-        card_id = cursor.lastrowid
+    finally:
         conn.close()
-        return {"id": card_id, "message": "Card added successfully!"}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error adding card: {e}")
+
+    return JSONResponse(content=[dict(row) for row in cards], media_type="application/json; charset=utf-8")
+
+

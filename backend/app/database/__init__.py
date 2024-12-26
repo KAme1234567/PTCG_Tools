@@ -1,3 +1,4 @@
+# E:\Projects\PTCG_Tools\backend\app\database\__init__.py
 import sqlite3
 
 def get_db_connection(db_name):

@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class InfiniteScrollList extends StatefulWidget {
+  const InfiniteScrollList({super.key});
+
   @override
   _InfiniteScrollListState createState() => _InfiniteScrollListState();
 }
@@ -12,7 +14,7 @@ class _InfiniteScrollListState extends State<InfiniteScrollList> {
   final List<Map<String, String>> _items = [];
   bool _isLoading = false;
   int _page = 1;
-  final int _limit = 2;
+  final int _limit = 5;
 
   @override
   void initState() {
@@ -33,32 +35,56 @@ class _InfiniteScrollListState extends State<InfiniteScrollList> {
       _isLoading = true;
     });
 
-    final response = await http.get(Uri.parse(
-        'http://127.0.0.1:8000/api/items?page=$_page&limit=$_limit')); // 使用局域網 IP
-    // 'http://10.0.2.2:8000/api/items?page=$_page&limit=$_limit')); // 使用局域網 IP
+    try {
+      final response = await http.get(
+        Uri.parse(
+          'https://solely-suitable-titmouse.ngrok-free.app/api/items?page=$_page&limit=$_limit', // ngrok URL
+        ),
+        headers: {
+          'ngrok-skip-browser-warning': 'true', // 添加標頭
+        },
+      );
 
-    if (response.statusCode == 200) {
-      final decodedData = utf8.decode(response.bodyBytes);
-      final items = json.decode(decodedData);
-      print(items); // 應該能正確顯示中文
-
-      final List<dynamic> data = json.decode(response.body);
-      setState(() {
-        _items.addAll(data.map((item) {
-          return {
-            "title": item["title"] as String,
-            "thumbnail": item["thumbnail"] as String,
-            "description": item["description"] as String
-          };
-        }).toList());
-        _page++;
-        _isLoading = false;
-      });
-    } else {
-      setState(() {
-        _isLoading = false;
-      });
-      throw Exception('Failed to load data');
+      if (response.statusCode == 200) {
+        final decodedData = utf8.decode(response.bodyBytes);
+        final List<dynamic> data = json.decode(decodedData);
+        if (mounted) {
+          // 確保 widget 未被移除
+          setState(() {
+            _items.addAll(data.map((item) {
+              return {
+                "title": item["title"] as String,
+                "thumbnail": item["thumbnail"] as String,
+                "description": item["description"] as String
+              };
+            }).toList());
+            _page++;
+          });
+        }
+      } else {
+        if (mounted) {
+          // 確保 widget 未被移除
+          setState(() {
+            _isLoading = false;
+          });
+        }
+        throw Exception('Failed to load data');
+      }
+    } catch (e) {
+      if (mounted) {
+        // 確保 widget 未被移除
+        setState(() {
+          _isLoading = false;
+        });
+      }
+      rethrow;
+    } finally {
+      if (mounted) {
+        // 確保 widget 未被移除
+        setState(() {
+          _isLoading = false;
+        });
+      }
     }
   }
 

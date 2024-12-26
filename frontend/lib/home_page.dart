@@ -62,24 +62,23 @@ class HomePage extends StatelessWidget {
             LayoutBuilder(
               builder: (context, constraints) {
                 return Wrap(
-                  spacing: 16, // 卡片之間的水平間距
-                  runSpacing: 4, // 卡片之間的垂直間距
-                  alignment: WrapAlignment.center, // 卡片居中對齊
-                  children: [
-                    _buildNavigationCard(
-                        context, 'Page 1', Icons.pageview, '/page1'),
-                    _buildNavigationCard(
-                        context, 'Page 2', Icons.pages, '/page2'),
-                    _buildNavigationCard(
-                        context, 'Page 3', Icons.pageview, '/page3'),
-                    _buildNavigationCard(
-                        context, 'Page 4', Icons.pageview, '/page4'),
-                    _buildNavigationCard(
-                        context, 'Page 5', Icons.pages, '/page5'),
-                    _buildNavigationCard(
-                        context, 'Page 6', Icons.pageview, '/page6'),
-                  ],
-                );
+                    spacing: 16, // 卡片之間的水平間距
+                    runSpacing: 4, // 卡片之間的垂直間距
+                    alignment: WrapAlignment.center, // 卡片居中對齊
+                    children: [
+                      _buildNavigationCard(
+                          context, '競技綜覽', Icons.sports_esports, '/page1'),
+                      _buildNavigationCard(
+                          context, '專欄介紹', Icons.menu_book, '/page2'),
+                      _buildNavigationCard(
+                          context, '消息通知', Icons.notifications, '/page3'),
+                      _buildNavigationCard(
+                          context, '我的牌組', Icons.style, '/page4'),
+                      _buildNavigationCard(
+                          context, '最新判例', Icons.gavel, '/page5'),
+                      _buildNavigationCard(
+                          context, '相關網站', Icons.link, '/page6'),
+                    ]);
               },
             ),
           ],
@@ -112,7 +111,7 @@ class HomePage extends StatelessWidget {
                 children: [
                   Spacer(),
                   Icon(icon,
-                      size: 80,
+                      size: 30,
                       color: Theme.of(context).primaryColor), // 圖標在正中央
                   Spacer(),
                   Text(

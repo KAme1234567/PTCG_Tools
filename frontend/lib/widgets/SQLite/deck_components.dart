@@ -1,15 +1,17 @@
-// E:\Projects\PTCG_Tools\frontend\lib\pages\search\scq_page.dart
+// frontend\lib\widgets\SQLite\deck_components.dart
 import 'package:flutter/material.dart';
-import '../../widgets/search/PTCG_DATA_API.dart'; // 導入 PTCG_DATA_API 組件
+import 'deck_DAta.dart'; // 導入 PTCG_DATA_API 組件
 
-class SearchPage extends StatefulWidget {
-  const SearchPage({super.key});
+class deck_components extends StatefulWidget {
+  final int deckId; // 接收 deckId
+
+  const deck_components({super.key, required this.deckId});
 
   @override
-  _SearchPageState createState() => _SearchPageState();
+  _deck_componentsState createState() => _deck_componentsState();
 }
 
-class _SearchPageState extends State<SearchPage> {
+class _deck_componentsState extends State<deck_components> {
   final nameFocusNode = FocusNode(); // 名稱輸入框焦點
   final nameController = TextEditingController(); // 名稱搜索框控制器
 
@@ -379,6 +381,7 @@ class _SearchPageState extends State<SearchPage> {
           const SizedBox(height: 16), // 添加間距
           Expanded(
             child: PTCGDATAAPI(
+              deckId: widget.deckId, // 使用 widget 引用父組件的參數, // 傳遞 deckId
               name: nameController.text, // 名稱篩選
               move: '', // 預留空白欄位（如果需要支持其他條件）
               stage_filter: selectedStage, // 階段篩選
