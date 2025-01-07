@@ -103,4 +103,3 @@ def get_cards(
 
     return JSONResponse(content=[dict(row) for row in cards], media_type="application/json; charset=utf-8")
 
-

@@ -1,4 +1,3 @@
-# E:\Projects\PTCG_Tools\backend\app\main.py
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
