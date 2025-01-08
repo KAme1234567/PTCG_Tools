@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>寶可夢卡牌攻略 APP</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+        main {
+            padding: 2rem;
+        }
+        section {
+            margin-bottom: 2rem;
+        }
+        h1, h2, h3 {
+            color: #4CAF50;
+        }
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: #4CAF50;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        .button {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            margin: 0.5rem 0;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>寶可夢卡牌攻略 APP</h1>
+    </header>
+    <main>
+        <section>
+            <h2>📚 APP 開發目的與特色</h2>
+            <p>我們的應用程式旨在降低新手玩家的學習門檻，提供繁體中文翻譯的熱門牌組和詳細教學，打造安全的交易環境。</p>
+            <ul>
+                <li><b>遊戲教學：</b> 結合圖文與互動方式，幫助新手快速上手。</li>
+                <li><b>牌組推薦：</b> 定期更新比賽熱門牌組，並提供策略分析。</li>
+                <li><b>發行日期提醒：</b> 輕鬆查詢新卡發行資訊。</li>
+            </ul>
+        </section>
+        <section>
+            <h2>🚀 快速開始</h2>
+            <h3>後端 - 使用 FastAPI</h3>
+            <ol>
+                <li>確保安裝 <b>Python 3.8+</b>。</li>
+                <li>創建虛擬環境並安裝必要套件。</li>
+                <li>運行伺服器：<code>uvicorn app.main:app --reload</code></li>
+            </ol>
+            <h3>前端 - 使用 Flutter</h3>
+            <ol>
+                <li>確保安裝 <b>Flutter SDK</b>。</li>
+                <li>創建專案並安裝依賴。</li>
+                <li>運行應用：<code>flutter run</code></li>
+            </ol>
+        </section>
+        <section>
+            <h2>🔍 未來發展與展望</h2>
+            <p>我們計劃新增社交互動功能、大數據分析與多語言支援，擴展玩家體驗並服務更多地區的玩家。</p>
+        </section>
+    </main>
+    <footer>
+        <p>© 2025 國立高雄科技大學 | APP 設計作業</p>
+    </footer>
+</body>
+</html>
