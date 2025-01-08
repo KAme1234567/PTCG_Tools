@@ -1,3 +1,4 @@
+// frontend\lib\pages\Column\project_detail_page.dart
 import 'package:flutter/material.dart';
 import '../../widgets/Column/project_api.dart';
 

@@ -1,4 +1,4 @@
-# E:\Projects\PTCG_Tools\backend\app\routes\cards_2.py
+# 
 from fastapi import APIRouter, HTTPException, Query
 from fastapi.responses import JSONResponse
 from app.database import get_db_connection

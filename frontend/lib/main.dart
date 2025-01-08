@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'home_page.dart';
-import 'pages/teaching/Knowledge_page.dart';
-import 'pages/search/Card_page.dart';
-import 'pages/navigation/Transaction_Page.dart';
+import 'pages/teaching/knowledge_page.dart';
+import 'pages/search/card_page.dart';
 import 'pages/navigation/settings_page.dart';
-import 'widgets/SQLite/deck_database.dart';
+
+import 'pages/Column/project_list_page.dart'; // 假設的頁面
+import 'pages/Jurisprudence/special_cases_list_page.dart'; // 假設的頁面
+import 'pages/my_decks/my_decks_page.dart'; // 假設的頁面
+import 'pages/teaching/basic_rules.dart'; // 假設的頁面
+import 'package:flutter_ptcg/pages/deck_recommended/project_list_page.dart'
+    as recommended;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await DeckDatabase.deleteDatabaseFile(); // 刪除資料庫
+  // await DeckDatabase.deleteDatabaseFile(); // 如果需要刪除資料庫，解除註解此行
   runApp(const MyApp());
 }
 
@@ -19,7 +24,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomePageNavigator(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const HomePageNavigator(),
+        '/my_decks_page': (context) => const MyDecksPage(),
+        '/knowledge_page': (context) => const recommended.ProjectListPage(),
+        '/search_page': (context) => const CardPage(),
+        '/project_list_page': (context) => recommended.ProjectListPage(),
+        '/special_cases_list_page': (context) => const SpecialCasesListPage(),
+        '/basic_rules': (context) => const BasicRules(),
+      },
     );
   }
 }
@@ -35,9 +49,9 @@ class _HomePageNavigatorState extends State<HomePageNavigator> {
   int _currentIndex = 1;
 
   final List<Widget> _pages = [
-    CardPage(),
-    HomePage(),
-    SettingsPage(),
+    const CardPage(),
+    const HomePage(),
+    const IntroductionPage(),
   ];
 
   @override
@@ -52,10 +66,10 @@ class _HomePageNavigatorState extends State<HomePageNavigator> {
           });
         },
         type: BottomNavigationBarType.fixed,
-        items: [
+        items: const [
           BottomNavigationBarItem(icon: Icon(Icons.search), label: '資料庫'),
           BottomNavigationBarItem(icon: Icon(Icons.home), label: '首頁'),
-          BottomNavigationBarItem(icon: Icon(Icons.settings), label: '設定'),
+          BottomNavigationBarItem(icon: Icon(Icons.settings), label: '介紹'),
         ],
       ),
     );

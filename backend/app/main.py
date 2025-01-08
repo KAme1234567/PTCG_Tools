@@ -1,3 +1,4 @@
+# backend\app\main.py
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
@@ -6,7 +7,7 @@ from fastapi.responses import JSONResponse
 
 
 
-from app.routes import cards, attributes, items,cards_2,columns,special_cases
+from app.routes import cards, attributes, items,cards_2,columns,special_cases,deck_api
 
 app = FastAPI()
 
@@ -31,6 +32,8 @@ app.include_router(attributes.router, prefix="/api")
 app.include_router(cards_2.router, prefix="/api")
 app.include_router(columns.router, prefix="/api")
 app.include_router(special_cases.router, prefix="/api")
+app.include_router(deck_api.router, prefix="/api")
+
 @app.get("/")
 def read_root():
     return {"message": "歡迎使用 PTCGasd ddd工具 API"}
